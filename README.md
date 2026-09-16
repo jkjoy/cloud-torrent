@@ -36,7 +36,7 @@ curl https://i.jpillora.com/cloud-torrent! | bash
 [dockerhub]: https://hub.docker.com/r/jpillora/cloud-torrent/
 
 ``` sh
-$ docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads jpillora/cloud-torrent
+$ docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads ghcr.io/jkjoy/cloud-torrent
 ```
 
 **Source**
@@ -67,7 +67,7 @@ $ go get -v github.com/jpillora/cloud-torrent
     docker run --name ct -d -p 63000:63000 \
       --restart always \
       -v /root/downloads:/downloads \
-      jpillora/cloud-torrent --port 63000
+      ghcr.io/jkjoy/cloud-torrent --port 63000
 
   13. Visit `http://<IP Address from email>:63000/`
   14. **OPTIONAL** In addition to `--port` you can specify the options below
