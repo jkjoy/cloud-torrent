@@ -1,0 +1,30 @@
+# Cloud Torrent - Docker Compose example
+#
+# Usage:
+#   docker compose up -d
+#
+# Then open http://localhost:3000
+#
+# Notes:
+#   - Downloaded files land in ./downloads (change the left side of the
+#     volume mount to your own path).
+#   - AUTH is strongly recommended if the instance is exposed to the
+#     internet; the format is "user:password".
+#   - To persist configuration, create an empty cloud-torrent.json first
+#     and uncomment the second volume: the config file defaults to
+#     /app/cloud-torrent.json inside the container.
+
+services:
+  cloud-torrent:
+    image: ghcr.io/jkjoy/cloud-torrent
+    container_name: cloud-torrent
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./downloads:/app/downloads
+      # - ./cloud-torrent.json:/app/cloud-torrent.json
+    environment:
+      - TITLE=Cloud Torrent
+      # - PORT=3000
+      # - AUTH=myuser:mypassword

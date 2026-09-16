@@ -39,6 +39,16 @@ curl https://i.jpillora.com/cloud-torrent! | bash
 $ docker run -d -p 3000:3000 -v /path/to/my/downloads:/downloads ghcr.io/jkjoy/cloud-torrent
 ```
 
+**Docker Compose**
+
+A ready-to-use [`docker-compose.yaml`](docker-compose.yaml) is included at the repository root:
+
+``` sh
+$ docker compose up -d
+```
+
+It maps `./downloads` into the container (edit the left-hand side of the volume to change the download location) and listens on port `3000`. See the comments inside the file for enabling auth and persisting configuration.
+
 **Source**
 
 *[Go](https://golang.org/dl/) is required to install from source*
