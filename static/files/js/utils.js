@@ -61,12 +61,13 @@ app.factory("storage", function() {
   return window.localStorage || {};
 });
 
-app.factory("reqerr", function() {
+app.factory("reqerr", ["i18n", function(i18n) {
   return function(err, status) {
+    //the backend returns plain English errors - show them as-is
     alert(err.error || err);
     console.error("request error '%s' (%s)", err, status);
   };
-});
+}]);
 
 app.filter("keys", function() {
   return Object.keys;

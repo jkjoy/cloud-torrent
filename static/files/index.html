@@ -15,40 +15,47 @@
 </head>
 
 <body class="app">
-	<div ng-cloak class="cage" ondropfile="uploadTorrent($event)" placeholder="Drop torrent files here">
-		<div ng-if="!connected" class="connect-warning ui inverted vertical masthead center aligned segment">
-			<div class="ui text container">
-				<h1 class="ui inverted header">
-					{{ hasConnected ? 'Disconnected' : 'Connecting' }}
-				</h1>
-				<h1 class="ui inverted header">
-					<i class="red lightning icon"></i>
-				</h1>
+	<div ng-cloak class="cage" ondropfile="uploadTorrent($event)" placeholder="{{ 't.drophere' | lang }}">
+			<div ng-if="!connected" class="connect-warning ui inverted vertical masthead center aligned segment">
+				<div class="ui text container">
+					<h1 class="ui inverted header">
+						{{ (hasConnected ? 't.disconnected' : 't.connecting') | lang }}
+					</h1>
+					<h1 class="ui inverted header">
+						<i class="red lightning icon"></i>
+					</h1>
+				</div>
 			</div>
-		</div>
-		<!-- TITLE ===================== -->
-		<div class="title">
-			<h2>
-				<a href="https://github.com/jpillora/cloud-torrent" target="_blank" ng-init="logoHover = false"
-				 ng-mouseover="logoHover = true" ng-mouseleave="logoHover = false">
-					<i class="blue icon" ng-class="{cloud:!logoHover, github: logoHover}"></i> {{ state.Stats.Title }}
-				</a>
-			</h2>
-			<div class="status">
-				<i ng-show="request.count > 0" class="ui circular loading repeat icon"></i>
-				<i ng-click="$root.config.edit = !$root.config.edit;" ng-class="{green: $root.config.edit}"
-				 class="ui circular server icon" style="font-size: 14px;"></i>
-				<i ng-click="$root.omni.edit = !$root.omni.edit;" ng-class="{green: $root.omni.edit}" class="ui circular magnet icon"
-				 style="font-size: 14px;"></i>
-				<i class="ui circular lightning icon" ng-class="{ green: connected, red: !connected }"></i>
+			<!-- TITLE ===================== -->
+			<div class="title">
+				<h2>
+					<a href="https://github.com/jpillora/cloud-torrent" target="_blank" ng-init="logoHover = false"
+					 ng-mouseover="logoHover = true" ng-mouseleave="logoHover = false">
+						<i class="blue icon" ng-class="{cloud:!logoHover, github: logoHover}"></i> {{ state.Stats.Title }}
+					</a>
+				</h2>
+				<div class="status">
+					<i ng-show="request.count > 0" class="ui circular loading repeat icon"></i>
+					<i ng-click="$root.config.edit = !$root.config.edit;" ng-class="{green: $root.config.edit}"
+					 class="ui circular server icon" style="font-size: 14px;"></i>
+					<i ng-click="$root.omni.edit = !$root.omni.edit;" ng-class="{green: $root.omni.edit}" class="ui circular magnet icon"
+					 style="font-size: 14px;"></i>
+					<i class="ui circular lightning icon" ng-class="{ green: connected, red: !connected }"></i>
+				</div>
 			</div>
-		</div>
-		<!-- GLOBAL ERROR MESSAGE ===================== -->
-		<div ng-if="err" class="ui error message">
-			<i class="close icon" ng-click="$root.err = null"></i>
-			<div class="header">Error</div>
-			<p>{{err}}</p>
-		</div>
+			<!-- LANGUAGE TOGGLE ===================== -->
+			<div class="lang-toggle">
+				<button ng-repeat="lang in i18n.available()" ng-click="i18n.set(lang)"
+				 ng-show="lang !== i18n.language" class="ui mini compact right floated basic button">
+					{{ i18n.name(lang) }}
+				</button>
+			</div>
+			<!-- GLOBAL ERROR MESSAGE ===================== -->
+			<div ng-if="err" class="ui error message">
+				<i class="close icon" ng-click="$root.err = null"></i>
+				<div class="header">{{ 't.error' | lang }}</div>
+				<p>{{err}}</p>
+			</div>
 
 		<section class="config" ng-controller="ConfigController" ng-include src="'template/config.html'"></section>
 		<section class="omni" ng-controller="OmniController" ng-include src="'template/omni.html'"></section>
@@ -59,8 +66,8 @@
 			<div>
 				<span>github.com/
 					<a href="https://github.com/jpillora" target="_blank">jpillora</a>/
-					<a href="https://github.com/jpillora/cloud-torrent" target="_blank">cloud-torrent</a> version {{ state.Stats.Version }} - </span>
-				<span ng-if="numKeys(state.Users) > 1">{{ numKeys(state.Users) }} users connected - </span>
+					<a href="https://github.com/jpillora/cloud-torrent" target="_blank">cloud-torrent</a> {{ 't.version' | lang }} {{ state.Stats.Version }} - </span>
+				<span ng-if="numKeys(state.Users) > 1">{{ numKeys(state.Users) }} {{ 't.usersconnected' | lang }} - </span>
 				<span>
 					<a href="https://golang.org" target="_blank">Go</a> {{ state.Stats.Runtime }}
 				</span>
@@ -68,22 +75,22 @@
 			<div>
 				<span ng-if="state.Stats.System.set">
 					<span class="extra">
-						goroutines {{ state.Stats.System.goRoutines }},
+						{{ 't.goroutines' | lang }} {{ state.Stats.System.goRoutines }},
 					</span>
 					<span class="extra">
-						gomem {{ state.Stats.System.goMemory | bytes }},
+						{{ 't.gomem' | lang }} {{ state.Stats.System.goMemory | bytes }},
 					</span>
 					<span>
-						cpu {{ state.Stats.System.cpu | round }}%,
+						{{ 't.cpu' | lang }} {{ state.Stats.System.cpu | round }}%,
 					</span>
 					<span>
-						mem {{ (100*state.Stats.System.memoryUsed/state.Stats.System.memoryTotal) | round }}%,
+						{{ 't.mem' | lang }} {{ (100*state.Stats.System.memoryUsed/state.Stats.System.memoryTotal) | round }}%,
 					</span>
 					<span>
-						disk {{ (100*state.Stats.System.diskUsed/state.Stats.System.diskTotal) | round }}%,
+						{{ 't.disk' | lang }} {{ (100*state.Stats.System.diskUsed/state.Stats.System.diskTotal) | round }}%,
 					</span>
 				</span>
-				<span ng-if="state.Stats.Uptime">up {{ ago(state.Stats.Uptime) }}</span>
+				<span ng-if="state.Stats.Uptime">{{ 't.up' | lang }} {{ ago(state.Stats.Uptime) }}</span>
 			</div>
 
 		</footer>
@@ -91,6 +98,8 @@
 		<script src="js/vendor/query-string.js"></script>
 		<script src="js/vendor/angular.min.js"></script>
 		<script src="js/vendor/moment.min.js"></script>
+		<script src="js/vendor/moment/zh-cn.js"></script>
+		<script src="js/i18n.js"></script>
 		<script src="js/velox.js"></script>
 		<script>
 			window.app = window.angular.module('app', []);

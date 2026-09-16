@@ -1,8 +1,9 @@
 /* globals app,window */
 
 //RootController
-app.run(function($rootScope, search, api) {
+app.run(function($rootScope, search, api, i18n) {
   var $scope = (window.scope = $rootScope);
+  window.i18nRef = i18n; //shared by the controllers (angular 1.2, no DI timing)
 
   //velox
   $scope.state = {};
@@ -66,14 +67,14 @@ app.run(function($rootScope, search, api) {
   $scope.uploadTorrent = function(event) {
     var fileContainer = event.dataTransfer || event.target;
     if (!fileContainer || !fileContainer.files) {
-      return alert("Invalid file event");
+      return alert(window.i18nRef.t("t.invalidfile"));
     }
     var filter = Array.prototype.filter;
     var files = filter.call(fileContainer.files, function(file) {
       return file.name.endsWith(".torrent");
     });
     if (files.length === 0) {
-      return alert("No torrent files to upload");
+      return alert(window.i18nRef.t("t.notorrents"));
     }
     files.forEach(function(file) {
       var reader = new FileReader();

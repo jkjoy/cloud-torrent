@@ -1,5 +1,5 @@
 <form ng-show="edit" class="ui segment edit form">
-  <h4 class="ui dividing header">Configuration</h4>
+  <h4 class="ui dividing header">{{ 't.config' | lang }}</h4>
   <div class="field"
     ng-repeat="(k,v) in state.Config"
     ng-init="type = inputType(v)">
@@ -16,10 +16,10 @@
     <div class="ui blue button"
       ng-class="{loading: apiing}"
       ng-click="submitConfig()">
-      Save
+      {{ 't.save' | lang }}
     </div>
     <div class="ui grey button" ng-click="toggle()">
-      Cancel
+      {{ 't.cancel' | lang }}
     </div>
   </div>
 </form>

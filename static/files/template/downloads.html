@@ -1,14 +1,14 @@
 <div class="section-header">
   <h3 class="ui header">
-    Downloads
+    {{ 't.downloads' | lang }}
   </h3>
   <h5 class="right" ng-show="state.Stats.System.set">
-    {{ (state.Stats.System.diskTotal-state.Stats.System.diskUsed) | bytes }} free
+    {{ (state.Stats.System.diskTotal-state.Stats.System.diskUsed) | bytes }} {{ 't.free' | lang }}
   </h5>
 </div>
 
 <div ng-if="numDownloads() == 0" class="ui message nodownloads">
-  <p>Download files above</p>
+  <p>{{ 't.downloadfiles' | lang }}</p>
 </div>
 
 <div ng-if="numDownloads() > 0" class="ui segment">

@@ -42,7 +42,7 @@ app.controller("OmniController", function(
     var m = window.queryString.parse(params);
 
     if (!/^urn:btih:([A-Za-z0-9]+)$/.test(m.xt)) {
-      $scope.omnierr = "Invalid Info Hash";
+      $scope.omnierr = window.i18nRef.t("t.invalidhash");
       return;
     }
 
@@ -112,7 +112,7 @@ app.controller("OmniController", function(
   $scope.parseMagnetString = function() {
     $scope.omnierr = null;
     if (!/^[A-Za-z0-9]+$/.test($scope.magnet.infohash)) {
-      $scope.omnierr = "Invalid Info Hash";
+      $scope.omnierr = window.i18nRef.t("t.invalidhash");
       return;
     }
     for (var i = 0; i < $scope.magnet.trackers.length; )
@@ -140,7 +140,7 @@ app.controller("OmniController", function(
     } else if ($scope.mode.magnet) {
       api.magnet($scope.inputs.omni);
     } else {
-      window.alert("UI Bug");
+      window.alert(window.i18nRef.t("t.uibug"));
     }
   };
 
@@ -184,12 +184,12 @@ app.controller("OmniController", function(
       return;
     }
     //else, look it up via url path
-    if (!result.path) return ($scope.omnierr = "No item URL found");
+    if (!result.path) return ($scope.omnierr = window.i18nRef.t("t.noItemUrl"));
 
     search.one($scope.inputs.provider, result.path).then(
       function(resp) {
         var data = resp.data;
-        if (!data) return ($scope.omnierr = "No response");
+        if (!data) return ($scope.omnierr = window.i18nRef.t("t.noResponse"));
         if (data.torrent) return api.url(data.torrent);
         var magnet;
         if (data.magnet) {
@@ -206,7 +206,7 @@ app.controller("OmniController", function(
             });
           magnet = magnetURI(result.name, data.infohash, trackers);
         } else {
-          $scope.omnierr = "No magnet or infohash found";
+          $scope.omnierr = window.i18nRef.t("t.noMagnet");
           return;
         }
         api.magnet(magnet);
