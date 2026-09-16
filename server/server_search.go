@@ -3,7 +3,7 @@ package server
 import (
 	"bytes"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"time"
@@ -36,7 +36,7 @@ func (s *Server) fetchSearchConfig() error {
 		return err
 	}
 	defer resp.Body.Close()
-	newConfig, err := ioutil.ReadAll(resp.Body)
+	newConfig, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}

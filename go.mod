@@ -1,17 +1,17 @@
 module github.com/jpillora/cloud-torrent
 
-go 1.25.4
+go 1.27.1
 
 require (
 	github.com/NYTimes/gziphandler v1.1.1
-	github.com/anacrolix/torrent v1.59.1
+	github.com/anacrolix/torrent v1.61.0
 	github.com/jpillora/archive v0.0.0-20160301031048-e0b3681851f1
 	github.com/jpillora/backoff v1.0.0
 	github.com/jpillora/cookieauth v1.1.1
-	github.com/jpillora/opts v1.2.3
-	github.com/jpillora/requestlog v1.0.0
+	github.com/jpillora/opts v1.9.0
+	github.com/jpillora/requestlog/v2 v2.0.4
 	github.com/jpillora/scraper v0.3.0
-	github.com/jpillora/velox v0.4.2
+	github.com/jpillora/velox v0.11.1
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 )
@@ -19,24 +19,23 @@ require (
 require (
 	github.com/PuerkitoBio/goquery v1.11.0 // indirect
 	github.com/RoaringBitmap/roaring v1.9.4 // indirect
-	github.com/ajwerner/btree v0.0.0-20211221152037-f427b3e689c0 // indirect
 	github.com/alecthomas/atomic v0.1.0-alpha2 // indirect
+	github.com/anacrolix/btree v0.0.0-20251201064447-d86c3fa41bd8 // indirect
 	github.com/anacrolix/chansync v0.7.0 // indirect
 	github.com/anacrolix/dht/v2 v2.23.0 // indirect
 	github.com/anacrolix/envpprof v1.4.0 // indirect
-	github.com/anacrolix/generics v0.1.0 // indirect
+	github.com/anacrolix/generics v0.1.1-0.20251125230353-15d98d46693b // indirect
 	github.com/anacrolix/go-libutp v1.3.2 // indirect
-	github.com/anacrolix/log v0.17.0 // indirect
+	github.com/anacrolix/log v0.17.1-0.20251118025802-918f1157b7bb // indirect
 	github.com/anacrolix/missinggo v1.3.0 // indirect
 	github.com/anacrolix/missinggo/perf v1.0.0 // indirect
 	github.com/anacrolix/missinggo/v2 v2.10.0 // indirect
 	github.com/anacrolix/mmsg v1.1.1 // indirect
 	github.com/anacrolix/multiless v0.4.0 // indirect
 	github.com/anacrolix/stm v0.5.0 // indirect
-	github.com/anacrolix/sync v0.5.4 // indirect
+	github.com/anacrolix/sync v0.5.5-0.20251119100342-d78dd1f686f1 // indirect
 	github.com/anacrolix/upnp v0.1.4 // indirect
 	github.com/anacrolix/utp v0.2.0 // indirect
-	github.com/andrew-d/go-termutil v0.0.0-20150726205930-009166a695a2 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
@@ -48,7 +47,6 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/edsrzf/mmap-go v1.2.0 // indirect
 	github.com/elithrar/simple-scrypt v1.3.0 // indirect
-	github.com/evanphx/json-patch/v5 v5.9.11 // indirect
 	github.com/floatdrop/lru v1.3.0 // indirect
 	github.com/go-llsqlite/adapter v0.2.0 // indirect
 	github.com/go-llsqlite/crawshaw v0.6.0 // indirect
@@ -56,15 +54,14 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/google/btree v1.1.3 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
-	github.com/jpillora/ansi v1.0.3 // indirect
-	github.com/jpillora/eventsource v1.1.0 // indirect
+	github.com/jpillora/eventsource v1.2.0 // indirect
 	github.com/jpillora/jplog v1.0.2 // indirect
-	github.com/jpillora/requestlog/v2 v2.0.4 // indirect
 	github.com/jpillora/sizestr v1.0.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.3.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
@@ -117,7 +114,7 @@ require (
 	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/exp v0.0.0-20251125195548-87e1e737ad39 // indirect
 	golang.org/x/net v0.47.0 // indirect
-	golang.org/x/sync v0.18.0 // indirect
+	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.14.0 // indirect

@@ -5,7 +5,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -19,7 +18,7 @@ import (
 	"github.com/jpillora/cloud-torrent/engine"
 	"github.com/jpillora/cloud-torrent/static"
 	"github.com/jpillora/cookieauth"
-	"github.com/jpillora/requestlog"
+	requestlog "github.com/jpillora/requestlog/v2"
 	"github.com/jpillora/scraper/scraper"
 	"github.com/jpillora/velox"
 	"github.com/skratchdot/open-golang/open"
@@ -100,7 +99,7 @@ func (s *Server) Run(version string) error {
 		AutoStart:         true,
 	}
 	if _, err := os.Stat(s.ConfigPath); err == nil {
-		if b, err := ioutil.ReadFile(s.ConfigPath); err != nil {
+		if b, err := os.ReadFile(s.ConfigPath); err != nil {
 			return fmt.Errorf("Read configuration error: %s", err)
 		} else if len(b) == 0 {
 			//ignore empty file
@@ -200,7 +199,7 @@ func (s *Server) reconfigure(c engine.Config) error {
 		return err
 	}
 	b, _ := json.MarshalIndent(&c, "", "  ")
-	ioutil.WriteFile(s.ConfigPath, b, 0755)
+	os.WriteFile(s.ConfigPath, b, 0755)
 	s.state.Config = c
 	s.state.Push()
 	return nil
