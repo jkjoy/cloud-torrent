@@ -25,6 +25,8 @@ See [the latest release](https://github.com/jpillora/cloud-torrent/releases/late
 curl https://i.jpillora.com/cloud-torrent! | bash
 ```
 
+> **OpenBSD users**: prebuilt binaries are no longer published for OpenBSD because the underlying `anacrolix/torrent` library does not cross-compile on that platform (`unix.SEEK_DATA` is undefined there, see upstream issue). Build from source instead.
+
 *Tip*: [Auto-run `cloud-torrent` on boot](https://github.com/jpillora/cloud-torrent/wiki/Auto-Run-on-Reboot)
 
 **Docker**
