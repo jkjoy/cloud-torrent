@@ -12,6 +12,23 @@ import (
 	"github.com/anacrolix/torrent/metainfo"
 )
 
+// defaultTrackers is appended to every new magnet / metainfo torrent so that
+// even bare magnet URIs without a tr= parameter have a reasonable list of
+// public trackers to start with. Established torrents will also discover
+// peers through DHT, PEX and whatever trackers the original source carried.
+var defaultTrackers = [][]string{
+	{
+		"udp://tracker.opentrackr.org:1337/announce",
+		"udp://tracker.coppersurfer.tk:6969/announce",
+		"udp://tracker.leechers-paradise.org:6969/announce",
+		"udp://open.demonii.com:1337/announce",
+		"https://tracker.opentrackr.org:443/announce",
+		"udp://p4p.arenabg.ch:1337/announce",
+		"udp://tracker.torrent.eu.org:451/announce",
+		"http://openbittorrent.com:80/announce",
+	},
+}
+
 // the Engine Cloud Torrent engine, backed by anacrolix/torrent
 type Engine struct {
 	mut      sync.Mutex
@@ -44,6 +61,10 @@ func (e *Engine) Configure(c Config) error {
 	config.NoUpload = !c.EnableUpload
 	config.Seed = c.EnableSeeding
 	config.ListenPort = c.IncomingPort
+	//raise piece-hash parallelism and the unverified-bytes budget so modern
+	//CPUs/SSDs aren't bottlenecked by default hashing values (2 hashers / 64MiB)
+	config.PieceHashersPerTorrent = 4
+	config.MaxUnverifiedBytes = 512 << 20
 	client, err := torrent.NewClient(config)
 	if err != nil {
 		return err
@@ -58,7 +79,12 @@ func (e *Engine) Configure(c Config) error {
 }
 
 func (e *Engine) NewMagnet(magnetURI string) error {
-	tt, err := e.client.AddMagnet(magnetURI)
+	spec, err := torrent.TorrentSpecFromMagnetUri(magnetURI)
+	if err != nil {
+		return err
+	}
+	spec.Trackers = append(spec.Trackers, defaultTrackers...)
+	tt, _, err := e.client.AddTorrentSpec(spec)
 	if err != nil {
 		return err
 	}
@@ -66,6 +92,7 @@ func (e *Engine) NewMagnet(magnetURI string) error {
 }
 
 func (e *Engine) NewTorrent(spec *torrent.TorrentSpec) error {
+	spec.Trackers = append(spec.Trackers, defaultTrackers...)
 	tt, _, err := e.client.AddTorrentSpec(spec)
 	if err != nil {
 		return err
